@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lvwyh.chat.mapper.ChatConversationMemberMapper">
+
+    <insert id="batchInsert">
+        INSERT INTO chat_conversation_member (
+        conversation_id,
+        user_id,
+        joined_at
+        )
+        VALUES
+        <foreach collection="members" item="item" separator=",">
+            (
+            #{item.conversationId},
+            #{item.userId},
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectUserIdsByConversationId" resultType="java.lang.Long">
+        SELECT user_id
+        FROM chat_conversation_member
+        WHERE conversation_id = #{conversationId}
+        ORDER BY id ASC
+    </select>
+
+    <select id="countByConversationIdAndUserId" resultType="int">
+        SELECT COUNT(1)
+        FROM chat_conversation_member
+        WHERE conversation_id = #{conversationId}
+          AND user_id = #{userId}
+    </select>
+
+</mapper>

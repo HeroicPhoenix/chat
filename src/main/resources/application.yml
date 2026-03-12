@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: chat-app
+
+  datasource:
+    url: jdbc:mariadb://192.168.3.99:3306/chat?useUnicode=true&characterEncoding=utf8mb4&useSSL=false
+    username: chat
+    password: Mack123698745.
+    driver-class-name: org.mariadb.jdbc.Driver
+
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+    servlet:
+      multipart:
+        max-file-size: 500MB
+        max-request-size: 500MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.lvwyh.chat.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+chat:
+  jwt:
+    secret: Wyh19760710.
+    expire-seconds: 604800
+  crypto:
+    aes-key: Machenkai991102!
+    version: v1
+  storage:
+    base-path: ./chat-data/files
